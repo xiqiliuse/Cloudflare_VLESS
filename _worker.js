@@ -847,14 +847,13 @@ dns:
   fake-ip-range: 198.18.0.1/16
   default-nameserver: 
     - 223.5.5.5
-    - 114.114.114.114
-    - 8.8.8.8
+    - 1.1.1.1
   nameserver:
     - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://cloudflare-dns.com/dns-query
   fallback:
-    - https://1.0.0.1/dns-query
-    - tls://dns.google
+    - https://cloudflare-dns.com/dns-query
+    - tls://cloudflare-dns.com/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -1130,7 +1129,7 @@ function getSingConfig(userID, hostName) {
     "servers": [
       {
         "tag": "proxydns",
-        "address": "tls://8.8.8.8/dns-query",
+        "address": "tls://cloudflare-dns.com/dns-query/",
         "detour": "select"
       },
       {
