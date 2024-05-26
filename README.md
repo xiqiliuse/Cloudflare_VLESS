@@ -64,7 +64,7 @@ UQC4r4gxAIbOTEEZGG-C1Ffn9inRo24J7qw3U0dFfaIfKyFr
 
 由于 Workers 节点的 IP 变动频繁，因此请勿在此节点登录重要账号
 
-原作者添加的Sing-Box订阅链接因格式原因无法使用，考虑到使用Sing-Box人数较少，直接删除，不再维护
+原作者添加的Sing-Box订阅链接因格式原因无法使用，已修复，但存在拉取规则失败的问题，尚未修复
 
 ## 遇到问题？
 
