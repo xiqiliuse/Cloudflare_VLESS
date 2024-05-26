@@ -1133,11 +1133,13 @@ function getSingConfig(userID, hostName) {
       {
         "tag": "proxydns",
         "address": "https://cloudflare-dns.com/dns-query/",
+	"address_resolver": "dns_resolver
         "detour": "select"
       },
       {
         "tag": "localdns",
-        "address": "https://223.5.5.5/dns-query",
+        "address": "h3://223.5.5.5/dns-query",
+	"address_resolver": "dns_resolver
         "detour": "direct"
       },
       {
@@ -1150,6 +1152,10 @@ function getSingConfig(userID, hostName) {
       }
     ],
     "rules": [
+      {
+        "outbound": "any",
+        "server": "dns_resolver"
+      },
       {
         "outbound": "any",
         "server": "localdns",
