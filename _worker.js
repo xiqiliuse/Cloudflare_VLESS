@@ -1538,28 +1538,29 @@ function getSingConfig(userID, hostName) {
                 "type": "remote",
                 "url": "https://raw.githubusercontent.com/xmdhs/sing-geosite/rule-set-Loyalsoldier/geosite-geolocation-cn.srs"
             },
-            "rules": [
-                {
-                    "outbound": "dns-out",
-                    "port": 53
-                },
-                {
-                    "clash_mode": "direct",
-                    "outbound": "direct"
-                },
-                {
-                    "clash_mode": "global",
-                    "outbound": "select"
-                },
-                {
-                    "ip_is_private": true,
-                    "outbound": "direct"
-                },
-                {
-                    "outbound": "direct",
-                    "rule_set": "geoip-cn"
-                }
-            ]
+        ],
+        "rules": [
+            {
+                "outbound": "dns-out",
+                "port": 53
+            },
+            {
+                "clash_mode": "direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "global",
+                "outbound": "select"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            },
+            {
+                "outbound": "direct",
+                "rule_set": "geoip-cn"
+            }
+        ]
     }
 }`;
 }
