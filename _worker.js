@@ -118,6 +118,15 @@ export default {
                             }
                         });
                     }
+                    case `/${userID}/sb`: {
+                        const singConfig = getSingConfig(userID, request.headers.get('Host'));
+                        return new Response(`${singConfig}`, {
+                            status: 200,
+                            headers: {
+                                "Content-Type": "application/json;charset=utf-8",
+                            }
+                        });
+                    }
                     default:
                         // return new Response('Not found', { status: 404 });
                         // For any other path, reverse proxy to 'leslieblog.top' and return the original response
@@ -795,6 +804,7 @@ ${vlessTlsLink}
 
 Base64 通用节点订阅链接：https://${hostName}/${userID}/base64
 Clash 配置文件订阅链接：https://${hostName}/${userID}/clash
+Sing-box 配置文件订阅链接：https://${hostName}/${userID}/sb
 
 提示：部分地区有 Cloudflare 默认域名被污染的情况，除非打开客户端的 TLS 分片功能，否则无法使用 TLS 端口的节点
 如为 Pages 部署的节点则只能使用 TLS 端口的节点
@@ -1094,4 +1104,441 @@ rules:
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,🌍选择代理`
+}
+
+function getSingConfig(userID, hostName) {
+    return `{
+    "dns": {
+        "fakeip": {
+            "enabled": true,
+            "inet4_range": "198.18.0.0/15",
+            "inet6_range": "fc00::/18"
+        },
+        "independent_cache": true,
+        "rules": [
+            {
+                "outbound": [
+                    "any"
+                ],
+                "server": "local"
+            },
+            {
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "rewrite_ttl": 1,
+                "server": "fakeip"
+            },
+            {
+                "clash_mode": "global",
+                "server": "remote"
+            },
+            {
+                "clash_mode": "direct",
+                "server": "local"
+            },
+            {
+                "rule_set": "geosite-cn",
+                "server": "local"
+            }
+        ],
+        "servers": [
+            {
+                "address": "https://1.1.1.1/dns-query",
+                "detour": "select",
+                "tag": "remote"
+            },
+            {
+                "address": "https://223.5.5.5/dns-query",
+                "detour": "direct",
+                "tag": "local"
+            },
+            {
+                "address": "rcode://success",
+                "tag": "block"
+            },
+            {
+                "address": "fakeip",
+                "tag": "fakeip"
+            }
+        ],
+        "strategy": "prefer_ipv4"
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true
+        },
+        "clash_api": {
+            "external_controller": "127.0.0.1:9090",
+            "secret": ""
+        }
+    },
+    "inbounds": [
+        {
+            "auto_route": true,
+            "domain_strategy": "prefer_ipv4",
+            "endpoint_independent_nat": true,
+            "inet4_address": "172.19.0.1/30",
+            "inet6_address": "2001:0470:f9da:fdfa::1/64",
+            "mtu": 9000,
+            "sniff": true,
+            "strict_route": true,
+            "type": "tun"
+        },
+        {
+            "domain_strategy": "prefer_ipv4",
+            "listen": "127.0.0.1",
+            "listen_port": 2333,
+            "tag": "socks-in",
+            "type": "socks",
+            "users": []
+        },
+        {
+            "domain_strategy": "prefer_ipv4",
+            "listen": "127.0.0.1",
+            "listen_port": 2334,
+            "tag": "mixed-in",
+            "type": "mixed",
+            "users": []
+        }
+    ],
+    "log": {},
+    "outbounds": [
+        {
+            "tag": "select",
+            "type": "selector",
+            "default": "urltest",
+            "outbounds": [
+                "urltest",
+                "Cloudflare-vless-80",
+                "Cloudflare-vless-8080",
+                "Cloudflare-vless-8880",
+                "Cloudflare-vless-2052",
+                "Cloudflare-vless-2082",
+                "Cloudflare-vless-2086",
+                "Cloudflare-vless-2095",
+                "Cloudflare-vless-tls-443",
+                "Cloudflare-vless-tls-2053",
+                "Cloudflare-vless-tls-2083",
+                "Cloudflare-vless-tls-2087",
+                "Cloudflare-vless-tls-2096",
+                "Cloudflare-vless-tls-8443"
+            ]
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 80,
+            "tag": "Cloudflare-vless-80",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 8080,
+            "tag": "Cloudflare-vless-8080",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 8880,
+            "tag": "Cloudflare-vless-8880",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2052,
+            "tag": "Cloudflare-vless-2052",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2082,
+            "tag": "Cloudflare-vless-2082",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2086,
+            "tag": "Cloudflare-vless-2086",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2095,
+            "tag": "Cloudflare-vless-2095",
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 443,
+            "tag": "Cloudflare-vless-tls-443",
+            "tls": {
+                "enabled": true,
+                "server_name": "vless2.leslieblog.top"
+            },
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2053,
+            "tag": "Cloudflare-vless-tls-2053",
+            "tls": {
+                "enabled": true,
+                "server_name": "vless2.leslieblog.top"
+            },
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2083,
+            "tag": "Cloudflare-vless-tls-2083",
+            "tls": {
+                "enabled": true,
+                "server_name": "vless2.leslieblog.top"
+            },
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2087,
+            "tag": "Cloudflare-vless-tls-2087",
+            "tls": {
+                "enabled": true,
+                "server_name": "vless2.leslieblog.top"
+            },
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 2096,
+            "tag": "Cloudflare-vless-tls-2096",
+            "tls": {
+                "enabled": true,
+                "server_name": "vless2.leslieblog.top"
+            },
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "server": "www.gov.se",
+            "server_port": 8443,
+            "tag": "Cloudflare-vless-tls-8443",
+            "tls": {
+                "enabled": true,
+                "server_name": "vless2.leslieblog.top"
+            },
+            "transport": {
+                "headers": {
+                    "Host": [
+                        "vless2.leslieblog.top"
+                    ]
+                },
+                "path": "/?ed=2048",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8820e16b-fbc2-49d3-90e4-eeeb8301c83c",
+            "packet_encoding": "xudp"
+        },
+        {
+            "tag": "urltest",
+            "type": "urltest",
+            "outbounds": [
+                "Cloudflare-vless-80",
+                "Cloudflare-vless-8080",
+                "Cloudflare-vless-8880",
+                "Cloudflare-vless-2052",
+                "Cloudflare-vless-2082",
+                "Cloudflare-vless-2086",
+                "Cloudflare-vless-2095",
+                "Cloudflare-vless-tls-443",
+                "Cloudflare-vless-tls-2053",
+                "Cloudflare-vless-tls-2083",
+                "Cloudflare-vless-tls-2087",
+                "Cloudflare-vless-tls-2096",
+                "Cloudflare-vless-tls-8443"
+            ]
+        },
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "block",
+            "type": "block"
+        },
+        {
+            "tag": "dns-out",
+            "type": "dns"
+        }
+    ],
+    "route": {
+        "auto_detect_interface": true,
+        "rule_set": [
+            {
+                "format": "binary",
+                "tag": "geoip-cn",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"
+            },
+            {
+                "format": "binary",
+                "tag": "geosite-cn",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/xmdhs/sing-geosite/rule-set-Loyalsoldier/geosite-geolocation-cn.srs"
+            },
+        "rules": [
+            {
+                "outbound": "dns-out",
+                "port": 53
+            },
+            {
+                "clash_mode": "direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "global",
+                "outbound": "select"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            },
+            {
+                "outbound": "direct",
+                "rule_set": "geoip-cn"
+            }
+        ]
+    }
 }
