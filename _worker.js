@@ -1561,4 +1561,5 @@ function getSingConfig(userID, hostName) {
             }
         ]
     }
+}`;
 }
