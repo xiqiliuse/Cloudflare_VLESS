@@ -4,9 +4,7 @@
 
 ## 部署教程
 
-Workers 教程地址：https://blog.misaka.rest/2023/07/29/cf-wkrs-vless/
-
-Pages 教程地址：https://blog.misaka.rest/2023/07/29/cf-pages-vless/
+部署教程自行前往YouTube搜索
 
 进入Cloudflare官网
 
@@ -31,7 +29,7 @@ Pages 教程地址：https://blog.misaka.rest/2023/07/29/cf-pages-vless/
 
 ## 鸣谢
 
-项目大部分代码来自 https://github.com/Misaka-blog/cf-wkrs-pages-vless/tree/main 为了避免原作者删库跑路Clone了此仓库
+项目大部分代码来自 https://github.com/Misaka-blog/cf-wkrs-pages-vless/tree/main ，原作者停更，克隆此仓库更新
 
 鸣谢项目
 zizifn：https://github.com/zizifn/edgetunnel
@@ -42,13 +40,21 @@ cmliu：https://github.com/cmliu/edgetunnel
 
 加密货币
 
-TRC20
+TRON
 
 TY7n1xwiHCBqcQqGH1cxjTQqZTuTXbzB4S
 
-ERC20
+Ethereum
 
-0xed57E7237E88ceC19d3Fd12A0D26bACb1DCc247b
+0xed57e7237e88cec19d3fd12a0d26bacb1dcc247b
+
+Solana
+
+3XnWnUALiJVTiwkpnHzxpTejTubEyoJdUSxhgsxihN3v
+
+Polygon
+
+0xed57e7237e88cec19d3fd12a0d26bacb1dcc247b
 
 TON
 
