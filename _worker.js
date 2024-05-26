@@ -827,7 +827,7 @@ By Leslie Alexander
 }
 
 function getBase64Config(userID, hostName) {
-    const vlessLinks = btoa(`vless://${userID}\u0040${bestCFIP}:80?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-cf-vless-80\nvless://${userID}\u0040${bestCFIP}:8080?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-cf-vless-8080\nvless://${userID}\u0040${bestCFIP}:8880?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-8880\nvless://${userID}\u0040${bestCFIP}:2052?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2052\nvless://${userID}\u0040${bestCFIP}:2082?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2082\nvless://${userID}\u0040${bestCFIP}:2086?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2086\nvless://${userID}\u0040${bestCFIP}:2095?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2095\nvless://${userID}\u0040${bestCFIP}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-443\nvless://${userID}\u0040${bestCFIP}:2053?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2053\nvless://${userID}\u0040${bestCFIP}:2083?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2083\nvless://${userID}\u0040${bestCFIP}:2087?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2087\nvless://${userID}\u0040${bestCFIP}:2096?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2096\nvless://${userID}\u0040${bestCFIP}:8443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-8443`);
+    const vlessLinks = btoa(`vless://${userID}\u0040${bestCFIP}:80?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-80\nvless://${userID}\u0040${bestCFIP}:8080?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-8080\nvless://${userID}\u0040${bestCFIP}:8880?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-8880\nvless://${userID}\u0040${bestCFIP}:2052?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2052\nvless://${userID}\u0040${bestCFIP}:2082?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2082\nvless://${userID}\u0040${bestCFIP}:2086?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2086\nvless://${userID}\u0040${bestCFIP}:2095?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-2095\nvless://${userID}\u0040${bestCFIP}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-443\nvless://${userID}\u0040${bestCFIP}:2053?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2053\nvless://${userID}\u0040${bestCFIP}:2083?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2083\nvless://${userID}\u0040${bestCFIP}:2087?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2087\nvless://${userID}\u0040${bestCFIP}:2096?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-2096\nvless://${userID}\u0040${bestCFIP}:8443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Cloudflare-vless-TLS-8443`);
 
     return `${vlessLinks}`
 }
@@ -853,7 +853,6 @@ dns:
     - https://cloudflare-dns.com/dns-query
   fallback:
     - https://cloudflare-dns.com/dns-query
-    - tls://cloudflare-dns.com/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -1129,12 +1128,12 @@ function getSingConfig(userID, hostName) {
     "servers": [
       {
         "tag": "proxydns",
-        "address": "tls://cloudflare-dns.com/dns-query/",
+        "address": "https://cloudflare-dns.com/dns-query/",
         "detour": "select"
       },
       {
         "tag": "localdns",
-        "address": "h3://223.5.5.5/dns-query",
+        "address": "https://223.5.5.5/dns-query",
         "detour": "direct"
       },
       {
