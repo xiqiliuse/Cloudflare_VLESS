@@ -1133,13 +1133,13 @@ function getSingConfig(userID, hostName) {
       {
         "tag": "proxydns",
         "address": "https://cloudflare-dns.com/dns-query/",
-	"address_resolver": "dns_resolver"
+	"address_resolver": "proxydns"
         "detour": "select"
       },
       {
         "tag": "localdns",
         "address": "h3://223.5.5.5/dns-query",
-	"address_resolver": "dns_resolver"
+	"address_resolver": "localdns"
         "detour": "direct"
       },
       {
@@ -1151,16 +1151,12 @@ function getSingConfig(userID, hostName) {
         "address": "fakeip"
       }
       {
-        "tag": "dns_resolver",
+        "tag": "localdns",
         "address": "h3://223.5.5.5",
         "detour": "direct"
       }
     ],
     "rules": [
-      {
-        "outbound": "any",
-        "server": "dns_resolver"
-      },
       {
         "outbound": "any",
         "server": "localdns",
@@ -1208,7 +1204,6 @@ function getSingConfig(userID, hostName) {
       "strict_route": true,
       "sniff": true,
       "sniff_override_destination": true,
-      "domain_strategy": "prefer_ipv4"
     }
   ],
   "outbounds": [
