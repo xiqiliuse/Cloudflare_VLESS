@@ -123,7 +123,7 @@ export default {
                         return new Response(`${singConfig}`, {
                             status: 200,
                             headers: {
-                                "Content-Type": "application/json;charset=utf-8",
+                                "Content-Type": "text/plain;charset=utf-8",
                             }
                         });
                     }
