@@ -1531,18 +1531,12 @@ function getSingConfig(userID, hostName) {
                 "tag": "geoip-cn",
                 "type": "remote",
                 "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"
-		
-                "download_detour": "direct"
-		
             },
             {
                 "format": "binary",
                 "tag": "geosite-cn",
                 "type": "remote",
                 "url": "https://raw.githubusercontent.com/xmdhs/sing-geosite/rule-set-Loyalsoldier/geosite-geolocation-cn.srs"
-		
-                "download_detour": "direct"
-		
             }
         ],
         "rules": [
