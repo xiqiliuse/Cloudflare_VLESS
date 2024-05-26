@@ -1150,6 +1150,11 @@ function getSingConfig(userID, hostName) {
         "tag": "dns_fakeip",
         "address": "fakeip"
       }
+      {
+        "tag": "dns_resolver",
+        "address": "h3://223.5.5.5",
+        "detour": "direct"
+      }
     ],
     "rules": [
       {
