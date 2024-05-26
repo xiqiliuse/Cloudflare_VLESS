@@ -811,10 +811,14 @@ Sing-box 配置文件订阅链接：https://${hostName}/${userID}/sb
 ---------------------------------------------------------------
 捐赠
 加密货币
-TRC20
+TRON
 TY7n1xwiHCBqcQqGH1cxjTQqZTuTXbzB4S
-ERC20
-0xed57E7237E88ceC19d3Fd12A0D26bACb1DCc247b
+Ethereum
+0xed57e7237e88cec19d3fd12a0d26bacb1dcc247b
+Solana
+3XnWnUALiJVTiwkpnHzxpTejTubEyoJdUSxhgsxihN3v
+Polygon
+0xed57e7237e88cec19d3fd12a0d26bacb1dcc247b
 TON
 UQC4r4gxAIbOTEEZGG-C1Ffn9inRo24J7qw3U0dFfaIfKyFr
 ---------------------------------------------------------------
