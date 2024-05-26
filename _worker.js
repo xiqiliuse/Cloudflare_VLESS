@@ -1537,8 +1537,8 @@ function getSingConfig(userID, hostName) {
                 "tag": "geosite-cn",
                 "type": "remote",
                 "url": "https://raw.githubusercontent.com/xmdhs/sing-geosite/rule-set-Loyalsoldier/geosite-geolocation-cn.srs"
-            },
-                    ],
+            }
+        ],
         "rules": [
             {
                 "outbound": "dns-out",
