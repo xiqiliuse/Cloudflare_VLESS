@@ -78,3 +78,6 @@ E-mail: https://github.com/HappyLeslieAlexander/
 项目地址: https://github.com/HappyLeslieAlexander/Cloudflare_VLESS/
 
 By Leslie Alexander
+
+### 感谢你右上角的star🌟
+[![Stargazers over time](https://starchart.cc/HappyLeslieAlexander/Cloudflare_VLESS.svg)](https://starchart.cc/HappyLeslieAlexander/Cloudflare_VLESS)
