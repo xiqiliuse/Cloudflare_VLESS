@@ -775,8 +775,8 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  * @returns {string}
  */
 function getVLESSConfig(userID, hostName) {
-    const vlessLink = `vless://${userID}\u0040${bestCFIP}:80?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-workers`
-    const vlessTlsLink = `vless://${userID}\u0040${bestCFIP}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-workers-TLS`
+    const vlessLink = `vless://${userID}\u0040${bestCFIP}:80?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Workers/Pages`
+    const vlessTlsLink = `vless://${userID}\u0040${bestCFIP}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Workers/Pages-TLS`
     return `
 下面是非 TLS 端口的节点信息及节点分享链接，可使用 Cloudflare 支持的非 TLS 端口：
 
