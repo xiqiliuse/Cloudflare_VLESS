@@ -815,8 +815,6 @@ TRON
 TY7n1xwiHCBqcQqGH1cxjTQqZTuTXbzB4S
 Ethereum
 0xed57e7237e88cec19d3fd12a0d26bacb1dcc247b
-Solana
-3XnWnUALiJVTiwkpnHzxpTejTubEyoJdUSxhgsxihN3v
 Polygon
 0xed57e7237e88cec19d3fd12a0d26bacb1dcc247b
 TON
