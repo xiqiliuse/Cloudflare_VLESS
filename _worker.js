@@ -2,7 +2,7 @@
 import { connect } from 'cloudflare:sockets';
 
 // 建议修改为自己的 UUID
-let userID = 'b54d59c8-b7e2-4784-a92f-10bfd20ee615';
+let userID = '5e9ad9cc-73cd-45f8-9184-031d1259aee7';
 
 // 生成配置文件的 Cloudflare 优选 IP (www.visa.com.hk   www.visa.com   speed.cloudflare.com等使用Cloudflare CDN的网站也可以)
 const bestCFIP = "www.visa.com.hk"
@@ -18,7 +18,7 @@ let nodeId = ''; // 1
 
 let apiToken = ''; //abcdefghijklmnopqrstuvwxyz123456
 
-let apiHost = 'whoneil.top'; // api.v2board.com
+let apiHost = ''; // api.v2board.com
 
 if (!isValidUUID(userID)) {
     throw new Error('uuid is not valid');
@@ -51,19 +51,19 @@ export default {
                             },
                         });
                     case '/connect': // for test connect to Cloudflare socket
-                        const [name, port] = ['cloudflare.com', '80'];
-                        console.log(`Connecting to ${name}:${port}...`);
+                        const [hostname, port] = ['cloudflare.com', '80'];
+                        console.log(`Connecting to ${hostname}:${port}...`);
 
                         try {
                             const socket = await connect({
-                                name: name,
+                                hostname: hostname,
                                 port: parseInt(port, 10),
                             });
 
                             const writer = socket.writable.getWriter();
 
                             try {
-                                await writer.write(new TextEncoder().encode('GET / HTTP/1.1\r\n: ' + name + '\r\n\r\n'));
+                                await writer.write(new TextEncoder().encode('GET / HTTP/1.1\r\nHost: ' + hostname + '\r\n\r\n'));
                             } catch (writeError) {
                                 writer.releaseLock();
                                 await socket.close();
@@ -92,7 +92,7 @@ export default {
                             return new Response(connectError.message, { status: 500 });
                         }
                     case `/${userID}`: {
-                        const vlessConfig = getVLESSConfig(userID, request.headers.get(''));
+                        const vlessConfig = getVLESSConfig(userID, request.headers.get('Host'));
                         return new Response(`${vlessConfig}`, {
                             status: 200,
                             headers: {
@@ -101,7 +101,7 @@ export default {
                         });
                     }
                     case `/${userID}/base64`: {
-                        const base64Config = getBase64Config(userID, request.headers.get(''));
+                        const base64Config = getBase64Config(userID, request.headers.get('Host'));
                         return new Response(`${base64Config}`, {
                             status: 200,
                             headers: {
@@ -110,7 +110,7 @@ export default {
                         });
                     }
                     case `/${userID}/clash`: {
-                        const clashConfig = getClashConfig(userID, request.headers.get(''));
+                        const clashConfig = getClashConfig(userID, request.headers.get('Host'));
                         return new Response(`${clashConfig}`, {
                             status: 200,
                             headers: {
@@ -119,7 +119,7 @@ export default {
                         });
                     }
                     case `/${userID}/sb`: {
-                        const singConfig = getSingConfig(userID, request.headers.get(''));
+                        const singConfig = getSingConfig(userID, request.headers.get('Host'));
                         return new Response(`${singConfig}`, {
                             status: 200,
                             headers: {
@@ -130,7 +130,7 @@ export default {
                     default:
                         // return new Response('Not found', { status: 404 });
                         // For any other path, reverse proxy to 'leslieblog.top' and return the original response
-                        url.name = 'leslieblog.top';
+                        url.hostname = 'whoneil.top';
                         url.protocol = 'https:';
                         request = new Request(url, request);
                         return await fetch(request);
@@ -262,7 +262,7 @@ async function fetchApiResponse() {
     };
 
     try {
-        const response = await fetch(`https://${api}/api/v1/server/UniProxy/user?node_id=${nodeId}&node_type=v2ray&token=${apiToken}`, requestOptions);
+        const response = await fetch(`https://${apiHost}/api/v1/server/UniProxy/user?node_id=${nodeId}&node_type=v2ray&token=${apiToken}`, requestOptions);
 
         if (!response.ok) {
             console.error('Error: Network response was not ok');
@@ -302,7 +302,7 @@ async function getApiResponse() {
  */
 async function checkUuidInApiResponse(targetUuid) {
     // Check if any of the environment variables are empty
-    if (!nodeId || !apiToken || !api) {
+    if (!nodeId || !apiToken || !apiHost) {
         return false;
     }
 
@@ -339,7 +339,7 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
     async function connectAndWrite(address, port) {
         /** @type {import("@cloudflare/workers-types").Socket} */
         const tcpSocket = connect({
-            name: address,
+            hostname: address,
             port: port,
         });
         remoteSocket.value = tcpSocket;
@@ -771,40 +771,40 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
 /**
  * 
  * @param {string} userID 
- * @param {string | null} Name
+ * @param {string | null} hostName
  * @returns {string}
  */
-function getVLESSConfig(userID, Name) {
-    const vlessLink = `vless://${userID}\u0040${bestCFIP}:80?encryption=none&security=none&fp=randomized&type=ws&=${Name}&path=%2F%3Fed%3D2560#Leslie-Workers/Pages`
-    const vlessTlsLink = `vless://${userID}\u0040${bestCFIP}:443?encryption=none&security=tls&sni=${Name}&fp=randomized&type=ws&=${Name}&path=%2F%3Fed%3D2560#Leslie-Workers/Pages-TLS`
+function getVLESSConfig(userID, hostName) {
+    const vlessLink = `vless://${userID}\u0040${bestCFIP}:80?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Workers/Pages`
+    const vlessTlsLink = `vless://${userID}\u0040${bestCFIP}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#Leslie-Workers/Pages-TLS`
     return `
 下面是非 TLS 端口的节点信息及节点分享链接，可使用 Cloudflare 支持的非 TLS 端口：
 
-地址：${Name} 或 Cloudflare 优选 IP
+地址：${hostName} 或 Cloudflare 优选 IP
 端口：80 或 Cloudflare 支持的非 TLS 端口
 UUID：${userID}
 传输：ws
-伪装域名：${Name}
+伪装域名：${hostName}
 路径：/?ed=2048
 
 ${vlessLink}
 
 下面是 TLS 端口的节点信息及节点分享链接，可使用 Cloudflare 支持的 TLS 端口：
 
-地址：${Name} 或 Cloudflare 优选 IP
+地址：${hostName} 或 Cloudflare 优选 IP
 端口：443 或 Cloudflare 支持的 TLS 端口
 UUID：${userID}
 传输：ws
 传输层安全：TLS
-伪装域名：${Name}
+伪装域名：${hostName}
 路径：/?ed=2048
-SNI 域名：${Name}
+SNI 域名：${hostName}
 
 ${vlessTlsLink}
 
-Base64 通用节点订阅链接：https://${Name}/${userID}/base64
-Clash 配置文件订阅链接：https://${}/${userID}/clash
-Sing-box 配置文件订阅链接：https://${}/${userID}/sb
+Base64 通用节点订阅链接：https://${hostName}/${userID}/base64
+Clash 配置文件订阅链接：https://${hostName}/${userID}/clash
+Sing-box 配置文件订阅链接：https://${hostName}/${userID}/sb
 
 提示：部分地区有 Cloudflare 默认域名被污染的情况，除非打开客户端的 TLS 分片功能，否则无法使用 TLS 端口的节点
 如为 Pages 部署的节点则只能使用 TLS 端口的节点
