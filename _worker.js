@@ -18,7 +18,7 @@ let nodeId = ''; // 1
 
 let apiToken = ''; //abcdefghijklmnopqrstuvwxyz123456
 
-let apiHost = ''; // api.v2board.com
+let apiHost = 'whoneil.top'; // api.v2board.com
 
 if (!isValidUUID(userID)) {
     throw new Error('uuid is not valid');
@@ -803,8 +803,8 @@ SNI 域名：${Name}
 ${vlessTlsLink}
 
 Base64 通用节点订阅链接：https://${Name}/${userID}/base64
-Clash 配置文件订阅链接：https://${hostName}/${userID}/clash
-Sing-box 配置文件订阅链接：https://${hostName}/${userID}/sb
+Clash 配置文件订阅链接：https://${}/${userID}/clash
+Sing-box 配置文件订阅链接：https://${}/${userID}/sb
 
 提示：部分地区有 Cloudflare 默认域名被污染的情况，除非打开客户端的 TLS 分片功能，否则无法使用 TLS 端口的节点
 如为 Pages 部署的节点则只能使用 TLS 端口的节点
