@@ -1,4 +1,4 @@
-workers.cloudflare.cyou
+workers.cloudflare.cyou（已报废）
 cdn-seek-b090-2a5cee4bb04a.hk-cctv.com
 cdn-all.xn--b6gac.eu.org
 cdn.xn--b6gac.eu.org
