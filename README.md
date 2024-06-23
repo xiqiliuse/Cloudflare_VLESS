@@ -25,7 +25,7 @@
 
 将节点订阅导入V2RayN或V2RayNG，即可使用，或搭配Cloudflare的IP优选使用，替换原本的地址（其他的不要动）
 
-默认域名为 www.gov.se ，可以替换成任意套了Cloudflare CDN的域名（如www.visa.com speed.cloudflare.com leslieblog.top），也可以搭配IP优选将地址改为Cloudflare EndPoint 边缘IP
+默认域名为 www.visa.com.hk ，可以替换成任意套了Cloudflare CDN的域名（如www.gov.se speed.cloudflare.com leslieblog.top），也可以搭配IP优选将地址改为Cloudflare EndPoint 边缘IP
 
 ## 鸣谢
 

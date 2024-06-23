@@ -4,11 +4,11 @@ import { connect } from 'cloudflare:sockets';
 // 建议修改为自己的 UUID
 let userID = '5e9ad9cc-73cd-45f8-9184-031d1259aee7';
 
-// 生成配置文件的 Cloudflare 优选 IP (www.visa.com.hk   www.visa.com   speed.cloudflare.com等使用Cloudflare CDN的网站也可以)
+// 生成配置文件的 Cloudflare 优选 IP (www.gov.se   speed.cloudflare.com等使用Cloudflare CDN的网站也可以)
 const bestCFIP = "www.visa.com.hk"
 
 // 用于 Cloudflare 网站的代理 IP
-const proxyIPs = ["workers.cloudflare.cyou"]; // （https://github.com/HappyLeslieAlexander/Cloudflare_VLESS/blob/main/proxyip.txt 中的地址也可以）
+const proxyIPs = ["cdn-all.xn--b6gac.eu.org"]; // （https://github.com/HappyLeslieAlexander/Cloudflare_VLESS/blob/main/proxyip.txt 中的地址也可以）
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
 let dohURL = 'https://cloudflare-dns.com/dns-query'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
